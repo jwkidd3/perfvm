@@ -1,0 +1,60 @@
+# Trial 1
+java -client -Xmx12m -Xms3m -Xmn1m -XX:PermSize=20m -XX:MaxPermSize=20m -jar /usr/java/demo/jfc/Java2D/Java2Demo.jar
+
+
+#Trial 2
+java -client -Xmx12m -Xms3m -Xmn1m -XX:PermSize=20m -XX:MaxPermSize=20m -jar  /usr/java/demo/jfc/Java2D/Java2Demo.jar
+
+
+#Trial 3
+java -client -verbose:gc -XX:+PrintGCTimeStamps -Xmx12m -Xms3m -Xmn1m -XX:PermSize=20m -XX:MaxPermSize=20m -jar /usr/java/demo/jfc/Java2D/Java2Demo.jar
+
+
+#Trial 4
+java -client -XX:+PrintGCDetails -Xmx12m -Xms3m -Xmn1m -XX:PermSize=20m -XX:MaxPermSize=20m -jar /usr/java/demo/jfc/Java2D/Java2Demo.jar
+
+
+#Trial 5a
+java -client -XX:+PrintGCDetails -XX:+PrintGCApplicationStoppedTime -XX:+UseSerialGC -Xmx12m -Xms3m -Xmn1m -XX:PermSize=20m -XX:MaxPermSize=20m -jar /usr/java/demo/jfc/Java2D/Java2Demo.jar
+
+
+#Trial 5b
+java -client -XX:+PrintGCApplicationStoppedTime -XX:+UseConcMarkSweepGC -XX:+PrintGCApplicationConcurrentTime -Xmx12m -Xms3m -Xmn1m -XX:PermSize=20m -XX:MaxPermSize=20m -jar /usr/java/demo/jfc/Java2D/Java2Demo.jar
+
+
+#Trial 6
+java -client -Xmx12m -Xms3m -Xmn1m -XX:PermSize=20m -XX:MaxPermSize=20m -jar /usr/java/demo/jfc/Java2D/Java2Demo.jar
+
+
+#Trial 7
+grant codebase "file:${java.home}/../lib/tools.jar" { 
+permission java.security.AllPermission; 
+};
+
+
+#Trial 8
+java -client -Xmx12m -Xms3m -Xmn1m -XX:PermSize=20m -XX:MaxPermSize=20m -jar /usr/java/demo/jfc/Java2D/Java2Demo.jar
+
+
+#Trial 9 
+jstat -gcutil XXXX@x.x.x.x 250
+
+
+#Trial 10
+java -Dcom.sun.management.jmxremote -jar /usr/java/demo/jfc/Java2D/Java2Demo.jar
+
+
+#Trial 11
+java -client -Xmx12m -Xms3m -Xmn1m -XX:PermSize=20m -XX:MaxPermSize=20m -jar /usr/java/demo/jfc/Java2D/Java2Demo.jar
+
+
+#Trial 12
+java -client -Xmx12m -Xms3m -Xmn1m -XX:PermSize=20m -XX:MaxPermSize=20m -jar /usr/java/demo/jfc/Java2D/Java2Demo.jar
+
+
+#Trial 13
+java -client -Xmx12m -Xms3m -Xmn1m -XX:PermSize=20m -XX:MaxPermSize=20m -jar /usr/java/demo/jfc/Java2D/Java2Demo.jar
+
+#Trial 14
+java -client -Xmx12m -Xms3m -Xmn1m -XX:PermSize=20m -XX:MaxPermSize=20m -XX:+PrintCompilation -jar /usr/java/demo/jfc/Java2D/Java2Demo.jar
+
