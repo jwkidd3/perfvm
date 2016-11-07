@@ -3,64 +3,46 @@ import java.util.Collection;
 
 public class PrematurePromotion {
 
-    // This example shows how objects lingering in the heap for too long
-    // may result in many more Full GC pauses than there could be.
+	private static final int MAX_CHUNKS = Integer.getInteger("max.chunks", 10_000);
 
-    // 1. Run with: -verbose:gc -Xmx24m -XX:NewSize=16m
-    //              -XX:MaxTenuringThreshold=1 -XX:-UseAdaptiveSizePolicy
-    //
-    //    Observe that there are many Full GCs
-    //
-    // 2. Run with: -verbose:gc -Xmx64m -XX:NewSize=32m
-    //              -XX:MaxTenuringThreshold=1 -XX:-UseAdaptiveSizePolicy
-    //
-    //    Observe that most of GCs are minor
-    //
-    // 3. Run with: -Dmax.chunks=1000 -verbose:gc -Xmx24m -XX:NewSize=16m
-    //              -XX:MaxTenuringThreshold=1 -XX:-UseAdaptiveSizePolicy
-    //
-    //    Observe that most of GCs are minor
+	private static final Collection<byte[]> accumulatedChunks = new ArrayList<>();
 
-    private static final int MAX_CHUNKS = Integer.getInteger("max.chunks", 10_000);
+	private static void onNewChunk(byte[] bytes) {
+		accumulatedChunks.add(bytes);
 
-    private static final Collection<byte[]> accumulatedChunks = new ArrayList<>();
+		if (accumulatedChunks.size() > MAX_CHUNKS) {
+			processBatch(accumulatedChunks);
+			accumulatedChunks.clear();
+		}
+	}
 
-    private static void onNewChunk(byte[] bytes) {
-        accumulatedChunks.add(bytes);
+	public static void main(String[] args) {
+		while (true) {
+			onNewChunk(produceChunk());
+		}
+	}
 
-        if(accumulatedChunks.size() > MAX_CHUNKS) {
-            processBatch(accumulatedChunks);
-            accumulatedChunks.clear();
-        }
-    }
+	private static byte[] produceChunk() {
+		byte[] bytes = new byte[1024];
 
-    public static void main(String[] args) {
-        while(true) {
-            onNewChunk(produceChunk());
-        }
-    }
+		for (int i = 0; i < bytes.length; i++) {
+			bytes[i] = (byte) (Math.random() * Byte.MAX_VALUE);
+		}
 
-    private static byte[] produceChunk() {
-        byte[] bytes = new byte[1024];
+		return bytes;
+	}
 
-        for(int i = 0; i < bytes.length; i ++) {
-            bytes[i] = (byte) (Math.random() * Byte.MAX_VALUE);
-        }
+	public static volatile byte sink;
 
-        return bytes;
-    }
+	public static void processBatch(Collection<byte[]> bytes) {
+		byte result = 0;
 
-    public static volatile byte sink;
+		for (byte[] chunk : bytes) {
+			for (byte b : chunk) {
+				result ^= b;
+			}
+		}
 
-    public static void processBatch(Collection<byte[]> bytes) {
-        byte result = 0;
-
-        for(byte[] chunk : bytes) {
-            for(byte b : chunk) {
-                result ^= b;
-            }
-        }
-
-        sink = result;
-    }
+		sink = result;
+	}
 }
