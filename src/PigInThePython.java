@@ -4,7 +4,7 @@ import java.util.List;
 public class PigInThePython {
   static volatile List<byte[]> pigs = new ArrayList<byte[]>();
   static volatile int pigsEaten = 0;
-  static final int ENOUGH_PIGS = 5000;
+  static final int ENOUGH_PIGS = 2500;
 
   public static void main(String[] args) throws InterruptedException {
     new PigEater().start();

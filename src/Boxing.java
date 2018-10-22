@@ -2,7 +2,7 @@ import java.util.concurrent.locks.LockSupport;
 //demos high allocation rate
 public class Boxing {
 
-    private static volatile Double sensorValue;
+    private static volatile double sensorValue;
 
     private static void readSensor() {
         while(true) {

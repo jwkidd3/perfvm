@@ -3,6 +3,12 @@ import java.util.Deque;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+/*
+ * The code submits two jobs to run every 100 ms. Each job emulates objects with a 
+ * specific lifespan: it creates objects, lets them leave for a predetermined amount 
+ * of time and then forgets about them, allowing GC to reclaim the memory.
+ */
+
 
 public class Producer implements Runnable {
 	private static ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);

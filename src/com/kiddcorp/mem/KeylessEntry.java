@@ -14,21 +14,6 @@ class KeylessEntry {
 			b = new Byte[100];
 		}
 
-		@Override
-		public boolean equals(Object obj) {
-			boolean ret = false;
-			if (obj == this)
-				ret =true;
-			if (((Key) obj).id == this.id)
-				ret = true;
-
-			return ret;
-		}
-
-		@Override
-		public int hashCode() {
-			return id.hashCode();
-		}
 	}
 
 	public static void main(String[] args) {
